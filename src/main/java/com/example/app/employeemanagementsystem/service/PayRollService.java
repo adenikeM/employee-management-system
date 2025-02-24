@@ -14,11 +14,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-@RequiredArgsConstructor
 @Service
 public class PayRollService {
     public final PayRollRepository payRollRepository;
     public final EmployeeRepository employeeRepository;
+
+    public PayRollService(PayRollRepository payRollRepository, EmployeeRepository employeeRepository) {
+        this.payRollRepository = payRollRepository;
+        this.employeeRepository = employeeRepository;
+    }
 
     public List<PayRoll> getAllPayRoll(){return payRollRepository.findAll();}
 

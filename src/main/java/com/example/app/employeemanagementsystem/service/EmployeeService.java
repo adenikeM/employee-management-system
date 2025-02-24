@@ -11,9 +11,13 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
+
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
+
+    public EmployeeService(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
 
     public List<Employee> getAllEmployee() {
         return employeeRepository.findAll();
@@ -27,7 +31,7 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
 
-    public Optional<Employee> updateEmployee(Long id, Employee employee) {
+   /* public Optional<Employee> updateEmployee(Long id, Employee employee) {
         return employeeRepository.findById(id)
                                  .map(existingEmployee -> {
                                      existingEmployee.setFirstName(employee.getFirstName());
@@ -37,21 +41,19 @@ public class EmployeeService {
                                      existingEmployee.setSalary(employee.getSalary());
                                      return employeeRepository.save(existingEmployee);
                                  });
-    }
+    }*/
 
-    /*public Employee updateEmployee(Long id, Employee employee) {
+   public Employee updateEmployee(Long id, Employee employee) {
         Employee existingEmployee = employeeRepository.findById(id)
-                                                      .orElseThrow(() -> new RuntimeException("Employee not found with id: " + id));
+                                                     .orElseThrow(() -> new RuntimeException("Employee not found with id: " + id));
 
         existingEmployee.setFirstName(employee.getFirstName());
         existingEmployee.setLastName(employee.getLastName());
         existingEmployee.setEmail(employee.getEmail());
         existingEmployee.setDepartment(employee.getDepartment());
         existingEmployee.setSalary(employee.getSalary());
-
-        return employeeRepository.save(existingEmployee);
+       return employeeRepository.save(existingEmployee);
     }
-*/
     public void deleteEmployeeById(Long id){
         employeeRepository.deleteById(id);
     }

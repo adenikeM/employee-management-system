@@ -11,9 +11,13 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
+
 public class DepartmentService {
     private final DepartmentRepository departmentRepository;
+
+    public DepartmentService(DepartmentRepository departmentRepository) {
+        this.departmentRepository = departmentRepository;
+    }
 
     public List<Department> getAllDepartment(){
         return departmentRepository.findAll();
@@ -30,7 +34,7 @@ public class DepartmentService {
     public Department updateDepartment(Long id, Department department){
         Department existingDepartment = departmentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Department not found with id " + id));
-        existingDepartment.setName(existingDepartment.getName());
+        existingDepartment.setName(existingDepartment.geName());
         if (department.getEmployees() != null && !department.getEmployees().isEmpty()) {
             existingDepartment.setEmployees(department.getEmployees());
         }
