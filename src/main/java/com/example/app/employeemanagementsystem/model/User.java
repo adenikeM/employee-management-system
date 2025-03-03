@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -28,4 +28,35 @@ public class User implements Serializable {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public @NotEmpty String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(@NotEmpty String userName) {
+        this.userName = userName;
+    }
+
+    public @NotEmpty String getPassword() {
+        return password;
+    }
+
+    public void setPassword(@NotEmpty String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }

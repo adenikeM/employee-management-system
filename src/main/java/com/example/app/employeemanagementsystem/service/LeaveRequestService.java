@@ -14,11 +14,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-@RequiredArgsConstructor
 @Service
 public class LeaveRequestService {
     public final LeaveRequestRepository leaveRequestRepository;
     public final EmployeeRepository employeeRepository;
+
+    public LeaveRequestService(LeaveRequestRepository leaveRequestRepository, EmployeeRepository employeeRepository) {
+        this.leaveRequestRepository = leaveRequestRepository;
+        this.employeeRepository = employeeRepository;
+    }
 
     public List<LeaveRequest> getAllLeaveRequest(){return leaveRequestRepository.findAll();}
 

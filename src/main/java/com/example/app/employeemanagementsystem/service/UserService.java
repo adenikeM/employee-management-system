@@ -11,9 +11,13 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
+
 public class UserService {
     private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public List<User> getAllUsers(){return userRepository.findAll();}
 
@@ -26,7 +30,7 @@ public class UserService {
     public User updateUser(Long id, User user){
         User existingUser = userRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("User not found with id " + id));
-        existingUser.setUserName(existingUser.getUserName());
+        existingUser.setUserName(user.getUserName());
         existingUser.setPassword(existingUser.getPassword());
         existingUser.setRole(existingUser.getRole());
 
