@@ -8,6 +8,8 @@ import org.hibernate.proxy.HibernateProxy;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -97,6 +99,18 @@ public class Employee implements Serializable {
     public void setSalary(BigDecimal salary) {
         this.salary = salary;
     }
+
+    @Getter
+    @ElementCollection(fetch = FetchType.EAGER)
+    @MapKeyColumn(name = "settings_key")
+    @Column(name = "settings_value")
+    @CollectionTable(name = "employee_settings", joinColumns = @JoinColumn(name = "employee_id"))
+    private final Map<String, String> settings = new HashMap<>();
+
+    public void addSetting(String key, String value) {
+        this.settings.put(key, value);
+    }
+
 
     /*// Override equals and hashCode for proper comparison and usage in collections
     @Override

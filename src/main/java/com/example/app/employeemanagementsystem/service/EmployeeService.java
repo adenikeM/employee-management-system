@@ -1,22 +1,29 @@
 package com.example.app.employeemanagementsystem.service;
 
+import com.example.app.employeemanagementsystem.model.Department;
 import com.example.app.employeemanagementsystem.model.Employee;
+import com.example.app.employeemanagementsystem.model.dto.EmployeeDTO;
 import com.example.app.employeemanagementsystem.repository.EmployeeRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+
+import static com.example.app.employeemanagementsystem.utils.ObjectMapper.mapCreateEmployeeDTOToEmployee;
 
 @Service
 @Slf4j
 
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
+    private final DepartmentService departmentService;
 
-    public EmployeeService(EmployeeRepository employeeRepository) {
+    public EmployeeService(EmployeeRepository employeeRepository, DepartmentService departmentService) {
         this.employeeRepository = employeeRepository;
+        this.departmentService = departmentService;
     }
 
     public List<Employee> getAllEmployee() {
@@ -43,6 +50,16 @@ public class EmployeeService {
                                  });
     }*/
 
+    public Employee createEmployeeV2(EmployeeDTO createEmployeeDTO){
+        Department department = departmentService.getDepartmentById(createEmployeeDTO.getDepartmentId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid Department id " + createEmployeeDTO.getDepartmentId()));
+        Employee employee = mapCreateEmployeeDTOToEmployee(createEmployeeDTO, department);
+        for(Map.Entry<String, String> entry : createEmployeeDTO.getSettings().entrySet()){
+            employee.addSetting(entry.getKey(), entry.getValue());
+        }
+        return employeeRepository.save(employee);
+    }
+
    public Employee updateEmployee(Long id, Employee employee) {
         Employee existingEmployee = employeeRepository.findById(id)
                                                      .orElseThrow(() -> new RuntimeException("Employee not found with id: " + id));
@@ -56,5 +73,14 @@ public class EmployeeService {
     }
     public void deleteEmployeeById(Long id){
         employeeRepository.deleteById(id);
+    }
+
+
+    public List<Employee> getEmployeesBySalaryRange(BigDecimal min, BigDecimal max) {
+        return employeeRepository.findBySalaryBetween(min, max);
+    }
+
+    public List<Employee> searchEmployeesByName(String name) {
+        return employeeRepository.findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(name, name);
     }
 }
