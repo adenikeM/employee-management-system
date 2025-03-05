@@ -4,6 +4,9 @@ import com.example.app.employeemanagementsystem.model.User;
 import com.example.app.employeemanagementsystem.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,23 +22,39 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> getAllUsers(){return userRepository.findAll();}
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
 
-    public Optional<User>getUserById(Long id){return userRepository.findById(id);}
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
+    }
 
-    public User createUser(User user){
+    public User createUser(User user) {
         return userRepository.save(user);
     }
 
-    public User updateUser(Long id, User user){
+    public User updateUser(Long id, User user) {
         User existingUser = userRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("User not found with id " + id));
+                                          .orElseThrow(() -> new RuntimeException("User not found with id " + id));
         existingUser.setUserName(user.getUserName());
+        existingUser.setEmail(existingUser.getEmail());
         existingUser.setPassword(existingUser.getPassword());
         existingUser.setRole(existingUser.getRole());
 
         return userRepository.save(existingUser);
     }
 
-    public void deleteUserById(Long id){userRepository.deleteById(id);}
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsService() {
+            @Override
+            public UserDetails loadUserByUsername(String username) {
+                return userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+            }
+        };
+    }
 }
