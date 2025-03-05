@@ -28,7 +28,7 @@ public class EmployeeController {
 
     @GetMapping("/employees/{id}")
     public ResponseEntity<?> getEmployeeById(@PathVariable Long id){
-        log.info("Get Employee id by {}", id);
+       /* log.info("Get Employee id by {}", id);*/
         if(id < 1){
             throw new IllegalArgumentException("Employee ID cannot be less than 1");
         }
@@ -39,7 +39,7 @@ public class EmployeeController {
 
     @PostMapping("/employees")
     public ResponseEntity<?> createEmployee(@RequestBody Employee employee){
-        log.info("Request to create employee => {}", employee);
+       /* log.info("Request to create employee => {}", employee);*/
         if(employee.getId() != null){
             return ResponseEntity.badRequest().body("Invalid employee id, ID should be null");
         }
@@ -48,7 +48,7 @@ public class EmployeeController {
 
     @PostMapping("/employees")
     public ResponseEntity<?> createEmployeeV2(@RequestBody EmployeeDTO createEmployeeDTO){
-        log.info("Request to create employee v2 => {}", createEmployeeDTO);
+        /*log.info("Request to create employee v2 => {}", createEmployeeDTO);*/
         return ResponseEntity.ok().body(employeeService.createEmployeeV2(createEmployeeDTO));
     }
     @PutMapping("/employees")
@@ -61,7 +61,7 @@ public class EmployeeController {
 
     @DeleteMapping("/employees/{id}")
     public ResponseEntity<?> deleteEmployee(@PathVariable Long id) {
-        log.info("Request to delete employee with ID: {}", id);
+        /*log.info("Request to delete employee with ID: {}", id);*/
         if (id < 1) {
             return ResponseEntity.badRequest().body("Invalid employee ID");
         }
@@ -76,7 +76,7 @@ public class EmployeeController {
 
     @GetMapping("/employees/search")
     public ResponseEntity<List<Employee>> searchEmployeesByName(@RequestParam String name) {
-        log.info("Searching employees with name: {}", name);
+       /* log.info("Searching employees with name: {}", name);*/
         return ResponseEntity.ok().body(employeeService.searchEmployeesByName(name));
     }
 

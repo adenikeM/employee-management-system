@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,8 +16,6 @@ import java.util.Collection;
 import java.util.List;
 
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 public class User implements Serializable, UserDetails {
     @Id
@@ -25,11 +24,18 @@ public class User implements Serializable, UserDetails {
     private Long id;
 
     @NotEmpty
+    private String firstName;
+
+    @NotEmpty
+    private String lastName;
+
+    @NotEmpty
     @Column(unique = true)
     private String userName;
 
     @NotEmpty
     @Email
+    @Column(unique = true)
     private String email;
 
     @NotEmpty
@@ -37,6 +43,23 @@ public class User implements Serializable, UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    public User() {
+    }
+
+    public User(Long id, String firstName, String lastName, String userName, String email, String password, Role role) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
+    public static User createUser(String firstName, String lastName, String userName, String email, String password, Role role) {
+        return new User(null, firstName, lastName, userName, email, password, role);
+    }
 
     public Long getId() {
         return id;
@@ -46,27 +69,43 @@ public class User implements Serializable, UserDetails {
         this.id = id;
     }
 
-    public @NotEmpty String getUserName() {
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getUserName() {
         return userName;
     }
 
-    public void setUserName(@NotEmpty String userName) {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    public @NotEmpty String getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(@NotEmpty String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public @NotEmpty String getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(@NotEmpty String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 

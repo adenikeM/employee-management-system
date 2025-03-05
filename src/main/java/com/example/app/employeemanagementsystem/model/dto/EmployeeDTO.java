@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-@Data
 public class EmployeeDTO {
 
     @NotEmpty
@@ -20,10 +19,12 @@ public class EmployeeDTO {
 
     private BigDecimal salary;
 
-    @NotNull(message = "department ID cannot be null")
+    @NotNull(message = "Department ID cannot be null")
     private Long departmentId;
 
-    public @NotEmpty String getFirstName() {
+    private final Map<String, String> settings = new HashMap<>();
+
+    public String getFirstName() {
         return firstName;
     }
 
@@ -55,14 +56,19 @@ public class EmployeeDTO {
         this.salary = salary;
     }
 
-    public @NotNull(message = "department ID cannot be null") Long getDepartmentId() {
+    public Long getDepartmentId() {
         return departmentId;
     }
 
-    public void setDepartmentId(@NotNull(message = "department ID cannot be null") Long departmentId) {
+    public void setDepartmentId(@NotNull(message = "Department ID cannot be null") Long departmentId) {
         this.departmentId = departmentId;
     }
 
-    private final Map<String, String> settings = new HashMap<>();
+    public Map<String, String> getSettings() {
+        return settings;
+    }
 
+    public void setSetting(String key, String value) {
+        this.settings.put(key, value);
+    }
 }
