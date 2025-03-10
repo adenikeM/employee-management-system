@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public class UserService {
+public class UserService implements UserDetailsService{
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
 
@@ -74,4 +74,8 @@ public class UserService {
         return userRepository.save(newUser);
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
+    }
 }

@@ -16,7 +16,6 @@ import static com.example.app.employeemanagementsystem.utils.ObjectMapper.mapCre
 
 @Service
 @Slf4j
-
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final DepartmentService departmentService;

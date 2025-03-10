@@ -46,7 +46,7 @@ public class EmployeeController {
         return ResponseEntity.ok().body(employeeService.createEmployee(employee));
     }
 
-    @PostMapping("/employees")
+    @PostMapping("/v2/employees")
     public ResponseEntity<?> createEmployeeV2(@RequestBody EmployeeDTO createEmployeeDTO){
         /*log.info("Request to create employee v2 => {}", createEmployeeDTO);*/
         return ResponseEntity.ok().body(employeeService.createEmployeeV2(createEmployeeDTO));

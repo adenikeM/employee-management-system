@@ -17,6 +17,7 @@ import java.util.List;
 
 
 @Entity
+@Table(name = "user_profile")
 public class User implements Serializable, UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
