@@ -74,6 +74,15 @@ public class EmployeeService {
         employeeRepository.deleteById(id);
     }
 
+    /*public Employee updateEmployeeSalary(Long id, BigDecimal newSalary) {
+        if (newSalary < 0) {
+            throw new IllegalArgumentException("Salary cannot be negative.");
+        }
+        Employee employee = getEmployeeById(id);
+        employee.setSalary(newSalary);
+        return employeeRepository.save(employee);
+    }*/
+
 
     public List<Employee> getEmployeesBySalaryRange(BigDecimal min, BigDecimal max) {
         return employeeRepository.findBySalaryBetween(min, max);
