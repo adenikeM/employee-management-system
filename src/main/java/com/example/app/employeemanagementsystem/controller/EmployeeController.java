@@ -2,8 +2,10 @@ package com.example.app.employeemanagementsystem.controller;
 
 import com.example.app.employeemanagementsystem.model.Employee;
 import com.example.app.employeemanagementsystem.model.dto.EmployeeDTO;
+import com.example.app.employeemanagementsystem.model.dto.ErrorResponse;
 import com.example.app.employeemanagementsystem.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +32,12 @@ public class EmployeeController {
     public ResponseEntity<?> getEmployeeById(@PathVariable Long id){
        /* log.info("Get Employee id by {}", id);*/
         if(id < 1){
-            throw new IllegalArgumentException("Employee ID cannot be less than 1");
+            return ResponseEntity.badRequest().body(
+                    ErrorResponse.buildErrorResponse(HttpStatus.BAD_REQUEST.value(),
+                            "Product id cannot be less than 1",
+                            "Invalid ID")
+
+            );
         }
         return employeeService.getEmployeeById(id)
                 .map(employee -> ResponseEntity.ok().body(employee))
@@ -39,14 +46,17 @@ public class EmployeeController {
 
     @PostMapping("/employees")
     public ResponseEntity<?> createEmployee(@RequestBody Employee employee){
-       /* log.info("Request to create employee => {}", employee);*/
+        log.info("Request to create employee => {}", employee);
         if(employee.getId() != null){
-            return ResponseEntity.badRequest().body("Invalid employee id, ID should be null");
+            return ResponseEntity.badRequest().body(
+                    ErrorResponse.buildErrorResponse(HttpStatus.BAD_REQUEST.value(),
+                            "ID should be null",
+                            "Invalid ID"));
         }
         return ResponseEntity.ok().body(employeeService.createEmployee(employee));
     }
 
-    @PostMapping("/employees")
+    @PostMapping("/v2/employees")
     public ResponseEntity<?> createEmployeeV2(@RequestBody EmployeeDTO createEmployeeDTO){
         /*log.info("Request to create employee v2 => {}", createEmployeeDTO);*/
         return ResponseEntity.ok().body(employeeService.createEmployeeV2(createEmployeeDTO));

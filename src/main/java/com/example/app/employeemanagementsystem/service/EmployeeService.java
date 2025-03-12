@@ -16,7 +16,6 @@ import static com.example.app.employeemanagementsystem.utils.ObjectMapper.mapCre
 
 @Service
 @Slf4j
-
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final DepartmentService departmentService;
@@ -74,6 +73,15 @@ public class EmployeeService {
     public void deleteEmployeeById(Long id){
         employeeRepository.deleteById(id);
     }
+
+    /*public Employee updateEmployeeSalary(Long id, BigDecimal newSalary) {
+        if (newSalary < 0) {
+            throw new IllegalArgumentException("Salary cannot be negative.");
+        }
+        Employee employee = getEmployeeById(id);
+        employee.setSalary(newSalary);
+        return employeeRepository.save(employee);
+    }*/
 
 
     public List<Employee> getEmployeesBySalaryRange(BigDecimal min, BigDecimal max) {

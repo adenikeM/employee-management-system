@@ -13,8 +13,7 @@ import java.util.Map;
 import java.util.Objects;
 
 
-@ToString
-@RequiredArgsConstructor
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -42,63 +41,6 @@ public class Employee implements Serializable {
 
     private BigDecimal salary;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-
-    public String getLastName() {
-        return lastName;
-    }
-
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-
-    public String getEmail() {
-        return email;
-    }
-
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-
-    public Department getDepartment() {
-        return department;
-    }
-
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-
-    public BigDecimal getSalary() {
-        return salary;
-    }
-
-
-    public void setSalary(BigDecimal salary) {
-        this.salary = salary;
-    }
 
     @Getter
     @ElementCollection(fetch = FetchType.EAGER)
@@ -111,25 +53,5 @@ public class Employee implements Serializable {
         this.settings.put(key, value);
     }
 
-
-    /*// Override equals and hashCode for proper comparison and usage in collections
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Employee)) return false;
-        Employee employee = (Employee) o;
-        return id != null && id.equals(employee.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
-
-    // Optional: You can add a method to display employee details in a specific format
-    public String displayEmployeeDetails() {
-        return String.format("Employee [ID=%d, Name=%s %s, Email=%s, Department=%s, Salary=%.2f]",
-                id, firstName, lastName, email, department != null ? department.getName() : "N/A", salary);
-    }
-*/
 }
+
