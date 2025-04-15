@@ -31,14 +31,15 @@ public class DepartmentService {
         return departmentRepository.save(department);
     }
 
-    public Department updateDepartment(Long id, Department department){
-        Department existingDepartment = departmentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Department not found with id " + id));
-        existingDepartment.setName(existingDepartment.geName());
-        if (department.getEmployees() != null && !department.getEmployees().isEmpty()) {
-            existingDepartment.setEmployees(department.getEmployees());
-        }
-        return departmentRepository.save(existingDepartment);
+
+    public Optional <Department> updateDepartment( Department department){
+        Department existingDepartment = departmentRepository.findById(department.getId())
+                .orElseThrow(() -> new RuntimeException("Department not found with id " + department.getId()));
+        existingDepartment.setName(existingDepartment.getName());
+//        if (department.getEmployees() != null && !department.getEmployees().isEmpty()) {
+//            existingDepartment.setEmployees(department.getEmployees());
+//        }
+        return Optional.of(departmentRepository.save(existingDepartment));
 
     }
 

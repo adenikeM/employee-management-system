@@ -34,7 +34,7 @@ public class EmployeeController {
         if(id < 1){
             return ResponseEntity.badRequest().body(
                     ErrorResponse.buildErrorResponse(HttpStatus.BAD_REQUEST.value(),
-                            "Product id cannot be less than 1",
+                            "Employee id cannot be less than 1",
                             "Invalid ID")
 
             );
