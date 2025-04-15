@@ -42,8 +42,8 @@ public class LeaveRequestService {
     public LeaveRequest updateLeaveRequest(Long id, LeaveRequest request){
         LeaveRequest leaveRequest = leaveRequestRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Leave Request not found with id " + id));
-        leaveRequest.setStatus(leaveRequest.getStatus());
-        return leaveRequestRepository.save(request);
+        leaveRequest.setStatus(request.getStatus());
+        return leaveRequestRepository.save(leaveRequest);
     }
 
     public void deleteLeaveRequestById(Long id){

@@ -34,7 +34,7 @@ public class EmployeeController {
         if(id < 1){
             return ResponseEntity.badRequest().body(
                     ErrorResponse.buildErrorResponse(HttpStatus.BAD_REQUEST.value(),
-                            "Product id cannot be less than 1",
+                            "Employee id cannot be less than 1",
                             "Invalid ID")
 
             );
@@ -58,7 +58,7 @@ public class EmployeeController {
 
     @PostMapping("/v2/employees")
     public ResponseEntity<?> createEmployeeV2(@RequestBody EmployeeDTO createEmployeeDTO){
-        /*log.info("Request to create employee v2 => {}", createEmployeeDTO);*/
+        log.info("Request to create employee v2 => {}", createEmployeeDTO);
         return ResponseEntity.ok().body(employeeService.createEmployeeV2(createEmployeeDTO));
     }
     @PutMapping("/employees")
