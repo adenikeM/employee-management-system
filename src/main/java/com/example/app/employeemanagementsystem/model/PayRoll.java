@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -28,7 +28,7 @@ public class PayRoll implements Serializable {
 
     private LocalDate payDay;
 
-    public Long getId() {
+    /*public Long getId() {
         return id;
     }
 
@@ -58,5 +58,5 @@ public class PayRoll implements Serializable {
 
     public void setPayDay(LocalDate payDay) {
         this.payDay = payDay;
-    }
+    }*/
 }
