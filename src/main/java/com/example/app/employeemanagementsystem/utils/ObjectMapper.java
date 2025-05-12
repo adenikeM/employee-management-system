@@ -2,7 +2,9 @@ package com.example.app.employeemanagementsystem.utils;
 
 import com.example.app.employeemanagementsystem.model.Department;
 import com.example.app.employeemanagementsystem.model.Employee;
+import com.example.app.employeemanagementsystem.model.PayRoll;
 import com.example.app.employeemanagementsystem.model.dto.EmployeeDTO;
+import com.example.app.employeemanagementsystem.model.dto.PayRollDTO;
 
 public class ObjectMapper {
     public static Employee mapCreateEmployeeDTOToEmployee(EmployeeDTO createEmployeeDTO, Department department) {
@@ -15,3 +17,9 @@ public class ObjectMapper {
         return employee;
     }
 }
+
+
+
+
+
+

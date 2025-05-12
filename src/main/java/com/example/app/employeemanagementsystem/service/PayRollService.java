@@ -2,6 +2,7 @@ package com.example.app.employeemanagementsystem.service;
 
 import com.example.app.employeemanagementsystem.model.Employee;
 import com.example.app.employeemanagementsystem.model.PayRoll;
+import com.example.app.employeemanagementsystem.model.dto.PayRollDTO;
 import com.example.app.employeemanagementsystem.repository.EmployeeRepository;
 import com.example.app.employeemanagementsystem.repository.PayRollRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,8 +35,8 @@ public class PayRollService {
 
         PayRoll payRoll = new PayRoll();
         payRoll.setEmployee(employee);
-        payRoll.setPayDay(payRoll.getPayDay());
-        payRoll.setSalary(payRoll.getSalary());
+        payRoll.setPayDay(payDay);
+        payRoll.setSalary(salary);
 
         return payRollRepository.save(payRoll);
     }
@@ -54,5 +55,13 @@ public class PayRollService {
         payRollRepository.delete(payRoll);
     }
 
-
+    private PayRollDTO mapToDTO(PayRoll payRoll) {
+        return new PayRollDTO(
+                payRoll.getId(),
+                payRoll.getEmployee().getId(),
+                payRoll.getEmployee().getFirstName() + " " + payRoll.getEmployee().getLastName(),
+                payRoll.getSalary(),
+                payRoll.getPayDay()
+        );
+    }
 }
